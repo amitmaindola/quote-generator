@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import './App.css'
 import loader from './loader.gif'
 
+import {bgColorList, API_URL} from './config/bgColor';
+
 function App() {
   const [quote, setQuote] = useState(null)
   const [bgColor, setBgColor] = useState("#FFF")
@@ -9,7 +11,7 @@ function App() {
 
   async function getQuote() {
     setQuote(null)
-    const response = await fetch('https://type.fit/api/quotes');
+    const response = await fetch(API_URL);
     const data = await response.text();
     const jsonData = await JSON.parse(data);
     setQuote(jsonData[Math.floor(Math.random()*jsonData.length)])
@@ -18,7 +20,6 @@ function App() {
     getQuote();
   }, [])
 
-  const bgColorList = ["#FFF", "#99F", "#9F9", "#F99", "#EAA", "#FFA", "#AFF", "#FAF"];
   
   useEffect(() => {
     setBgColor(bgColorList[Math.floor(Math.random()*bgColorList.length)])
